@@ -3,9 +3,12 @@ from functools import lru_cache
 from typing import Any, Dict, Iterator
 
 import streamlit as st
+import streamlit_modal as st_modal
 from PIL import Image
 
+import core.modal as modal
 from definitions import (
+    BG_COLOR,
     DESCRIPTION,
     EDUCATION,
     EMAIL,
@@ -65,7 +68,9 @@ def render_hero_section(profile_pic, resume):
             file_name="Akash-Patki-Resume.pdf",
             mime="application/octet-stream",
         )
-        st.write("📫", EMAIL)
+        pressed = st.button("📫 Contact Me")
+        if pressed:
+            st_modal.open()
 
 
 def render_social_presence():
@@ -230,6 +235,42 @@ def render_education():
         render_education_entry(entry=entry)
 
 
+def render_contact_form():
+    if st_modal.is_open():
+        # with st_modal.container():
+        with modal.container(
+            background_color=BG_COLOR, padding=20, title="Contact Me"
+        ):
+            st.subheader("Fill up the details below to get in touch")
+            name = st.text_input("Name", max_chars=50, placeholder="John Doe")
+            email = st.text_input(
+                "Email", max_chars=50, placeholder="me@example.com"
+            )
+            message = st.text_area(
+                "Message", max_chars=250, placeholder="Sampe Message"
+            )
+            st.markdown("---")
+
+            feedback = st.empty()
+
+            columns = st.columns(6)
+            submit = columns[0].button("Submit")
+            close = columns[1].button("Close")
+            if submit:
+                if name and email and message:
+                    print(
+                        "Submitting the request now"
+                        f" {name}->{email}->{message}"
+                    )
+                    st_modal.close()
+                else:
+                    feedback.error(
+                        f"Name, Email and Message are all mandatory"
+                    )
+            if close:
+                st_modal.close()
+
+
 def run():
     st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
     profile_pic, resume = load_resources()
@@ -240,6 +281,7 @@ def run():
     render_professional_experience()
     render_personal_projects()
     render_education()
+    render_contact_form()
 
 
 if __name__ == "__main__":

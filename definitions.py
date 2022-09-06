@@ -2,6 +2,9 @@ import os
 from datetime import datetime
 
 # Constants
+BG_COLOR = "#002b36"
+TEXT_COLOR = "#ffffff"
+
 PROJECT_NAME = "project-name"
 PROJECT_DESCRIPTION = "project-description"
 PROJECT_URL = "project-url"
@@ -47,16 +50,16 @@ SOCIAL_MEDIA = {
 
 PROFESSIONAL_SUMMARY = [
     (
-        "- ✔️ 10+ years experience developing high frequency data driven"
+        "- ✔️  10+ years experience developing high frequency data driven"
         " applications."
     ),
-    "- ✔️ Strong hands on experience and knowledge in Python and React.",
+    "- ✔️  Strong hands on experience and knowledge in Python and React.",
     (
-        "- ✔️ Good understanding of Computer Science principles and their"
+        "- ✔️  Good understanding of Computer Science principles and their"
         " respective applications."
     ),
     (
-        "- ✔️ Excellent team-player and displaying strong sense of initiative"
+        "- ✔️  Excellent team-player and displaying strong sense of initiative"
         " on tasks."
     ),
 ]
