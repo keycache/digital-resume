@@ -4,14 +4,13 @@ from typing import Any, Dict, Iterator
 
 import streamlit as st
 import streamlit_modal as st_modal
+import toml
 from PIL import Image
 
 import core.modal as modal
-from definitions import (
-    BG_COLOR,
+from core.definitions import (
     DESCRIPTION,
     EDUCATION,
-    EMAIL,
     GPA,
     INSTITUTE_NAME,
     INSTITUTE_STAY,
@@ -37,6 +36,7 @@ from definitions import (
     css_file_path,
     profile_pic_path,
     resume_file_path,
+    streamlit_config_file_path,
 )
 
 
@@ -44,6 +44,11 @@ from definitions import (
 def read_file(file_path, mode: str = "r"):
     with open(file=file_path, mode=mode) as f:
         return f.read()
+
+
+@lru_cache
+def load_toml(file_path: str) -> Dict[str, Any]:
+    return toml.load(file_path)
 
 
 def load_resources():
@@ -236,10 +241,12 @@ def render_education():
 
 
 def render_contact_form():
+    streamlit_config = load_toml(streamlit_config_file_path)
     if st_modal.is_open():
-        # with st_modal.container():
         with modal.container(
-            background_color=BG_COLOR, padding=20, title="Contact Me"
+            background_color=streamlit_config["theme"]["backgroundColor"],
+            padding=20,
+            title="Contact Me",
         ):
             st.subheader("Fill up the details below to get in touch")
             name = st.text_input("Name", max_chars=50, placeholder="John Doe")

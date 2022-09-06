@@ -2,8 +2,6 @@ import os
 from datetime import datetime
 
 # Constants
-BG_COLOR = "#002b36"
-TEXT_COLOR = "#ffffff"
 
 PROJECT_NAME = "project-name"
 PROJECT_DESCRIPTION = "project-description"
@@ -24,12 +22,13 @@ GPA = "gpa"
 
 NOW = "now"
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-css_file_path = os.path.join(current_dir, "styles", "main.css")
-profile_pic_path = os.path.join(current_dir, "assets", "profile-pic.jpg")
-resume_file_path = os.path.join(
-    current_dir, "assets", "Akash-Patki-Resume.pdf"
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+streamlit_config_file_path = os.path.join(
+    root_dir, ".streamlit", "config.toml"
 )
+css_file_path = os.path.join(root_dir, "styles", "main.css")
+profile_pic_path = os.path.join(root_dir, "assets", "profile-pic.jpg")
+resume_file_path = os.path.join(root_dir, "assets", "Akash-Patki-Resume.pdf")
 
 
 # --- GENERAL SETTINGS ---
