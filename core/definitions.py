@@ -463,13 +463,13 @@ PERSONAL_PROJECTS = [
 
 EDUCATION = [
     {
-        INSTITUTE_NAME: "Vanderbilt University, Nashville, TN - USA",
+        INSTITUTE_NAME: "Vanderbilt University,\n Nashville, TN - USA",
         INSTITUTE_STAY: (datetime(2009, 8, 1), datetime(2011, 12, 1)),
         GPA: 3.87,
     },
     {
         INSTITUTE_NAME: (
-            "National Institute of Technology, Rourkela, Orissa - India"
+            "National Institute of Technology,\n Rourkela, Orissa - India"
         ),
         INSTITUTE_STAY: (datetime(2003, 8, 10), datetime(2007, 5, 10)),
         GPA: 7.54,

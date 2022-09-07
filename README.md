@@ -14,9 +14,14 @@ This repo is a an implementation of my digital resume
 - [x] Customize components
 	- [x] Centering elements
 	- [x] Raw `html`
+- [ ] Split content to multiple pages
+	- [ ] URL based content
 - [ ] Add `external` icons (e.g. `github`, `youtube`, etc.)
 - [ ] `logging`
 - [ ] Contact form
+	- [x] Modal creation
+	- [x] Customize modal behavior, content
+	- [ ] Integrate with 3rd party service to send the request.
 - [ ] hosting
 	- [ ] Create `Dockerfile` and `Dockerignore`
 	- [ ] Initialize `github actions` (??)

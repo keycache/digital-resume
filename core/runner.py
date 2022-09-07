@@ -68,12 +68,12 @@ def render_hero_section(profile_pic, resume):
         st.title(NAME)
         st.write(DESCRIPTION)
         st.download_button(
-            label="📄 Download Resume",
+            label="📄  Download Resume",
             data=resume,
             file_name="Akash-Patki-Resume.pdf",
             mime="application/octet-stream",
         )
-        pressed = st.button("📫 Contact Me")
+        pressed = st.button("📫  Contact Me")
         if pressed:
             st_modal.open()
 
@@ -221,11 +221,9 @@ def render_education():
         name, stay, gpa = get_name(entry), get_stay(entry), get_gpa(entry)
         start, end = stay
         st.markdown(
-            f"<h3 style='text-align: center;'><b>{name}</b></h3>",
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            f"<p style='text-align: center;'><i>{start} to {end}</i></p>",
+            "<h3 style='text-align: center; white-space:"
+            f" pre-wrap;'><b>{name}</b></h3>"
+            f"<div style='text-align: center;'><i>{start} to {end}</i></div>",
             unsafe_allow_html=True,
         )
         st.markdown(
@@ -286,9 +284,9 @@ def run():
     render_summary()
     render_skills()
     render_professional_experience()
-    render_personal_projects()
     render_education()
     render_contact_form()
+    render_personal_projects()
 
 
 if __name__ == "__main__":
