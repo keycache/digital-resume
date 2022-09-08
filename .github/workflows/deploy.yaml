@@ -1,18 +1,17 @@
 name: Demo Push
 
 on:
-  push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - main
-
-  # Run tests for any PRs.
   pull_request:
+    branches: [ main ]
+    types: [ closed ]
 
 jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
+    name: Build the image and push to github repository
+    # if the pull request is being merged
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       packages: write
