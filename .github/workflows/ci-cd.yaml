@@ -6,7 +6,7 @@ on:
     types: [ closed ]
 
 env:
-  IMAGE_NAME: digital-resume
+  IMAGE_NAME: digitalresume
 
 jobs:
   # Push image to GitHub Packages.
@@ -44,4 +44,5 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          echo "Tagging complete. Now pushing the image"
           docker push $IMAGE_ID:$VERSION
