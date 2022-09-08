@@ -24,9 +24,6 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          # registry: ghcr.io/${{ github.repository_owner }}
-          # username: ${{ github.repository_owner }}
-          # password: ${{ secrets.GITHUB_TOKEN }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -37,3 +34,20 @@ jobs:
           context: .
           push: true
           tags: keycache/digital-resume:${{ github.run_number }} , keycache/digital-resume:latest
+  deploy:
+    name: Deploy the image on EC2
+    # if the pull request is being merged
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_EC2_USERNAME }}
+          key: ${{ secrets.AWS_EC2_SECRET }}
+          port: 22
+          script: |
+            sudo docker pull keycache/digital-resume:latest
+            sudo docker stop $(sudo docker ps -q --filter ancestor=keycache/digital-resume:latest) 2>/dev/null
+            sudo docker run -p 8501:8501 keycache/digital-resume:latest
