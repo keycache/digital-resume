@@ -21,7 +21,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup Env Variable/s
-        run: echo "IMAGE_NAME=digital-resume-$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+        run: |
+          echo "IMAGE_NAME=digital-resume" >> $GITHUB_ENV
+          echo "IMAGE_VERSION=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
       - name: Build image
         run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }} --label "runnumber=${GITHUB_RUN_ID}"
 
@@ -35,13 +37,7 @@ jobs:
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
+          echo VERSION=${{ env.IMAGE_VERSION }}
           docker tag ${{ env.IMAGE_NAME }} $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
